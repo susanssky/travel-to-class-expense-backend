@@ -79,8 +79,6 @@ export const deleteRecipt = async (req: Request, res: Response) => {
   const { public_id } = req.body;
 
   const deletionResult = await cloudinary.uploader.destroy(public_id);
-  console.log(deletionResult);
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Can't find this receipt" });
   }

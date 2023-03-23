@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { v2 as cloudinary } from "cloudinary";
 import cors from "cors";
-import express, { Express } from "express";
+import express, { Express, Request, Response, NextFunction } from "express";
 import multer from "multer";
 import mongoose from "mongoose";
 
@@ -22,11 +22,21 @@ import {
 } from "./controllers/receiptController";
 
 const app: Express = express();
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://susan-travel-to-class-expense.netlify.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

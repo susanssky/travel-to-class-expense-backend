@@ -13,6 +13,12 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const userController_1 = require("./controllers/userController");
 const receiptController_1 = require("./controllers/receiptController");
 const app = (0, express_1.default)();
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://susan-travel-to-class-expense.netlify.app");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+});
 cloudinary_1.v2.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
